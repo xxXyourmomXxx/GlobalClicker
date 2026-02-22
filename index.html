@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            margin: 0;
+            height: 100vh;
+            
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            background: #111;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;  /* Stack elements vertically */
+            align-items: center;     /* Center horizontally */
+            gap: 20px;               /* Space between button and text */
+        }
+
+        .big-button{
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #ff3c3c, #c40000);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.15s;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+        .big-button:hover{
+            transform: scale(1.05);
+        }
+        .big-button:active{
+            transform: scale(0.95);
+        }
+        .big-text{
+            margin-top: 0px;
+            font-size: clamp(20px, 15vw, 150px);
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            color: white;
+            user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="big-button" onclick="incrementCounter()">
+        CLICK ME
+        </div>
+
+        <div class="big-text" id = "counter">
+        
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script>
+    // 🔹 Your Firebase config goes here
+    const firebaseConfig = {
+        apiKey: "AIzaSyCJ6phfTKUT8J7VnRDWyWvcHl4dQHPivOY",
+        authDomain: "globalclicks-bc2c4.firebaseapp.com",
+        databaseURL: "https://globalclicks-bc2c4-default-rtdb.firebaseio.com",
+        projectId: "globalclicks-bc2c4",
+        storageBucket: "globalclicks-bc2c4.firebasestorage.app",
+        messagingSenderId: "4639079352",
+        appId: "1:4639079352:web:f602e83200f3385e822d4d"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const counterRef = db.ref('clickCount');
+
+    // Listen for realtime updates
+    counterRef.on('value', (snapshot) => {
+        const count = snapshot.val() || 0;
+        document.getElementById('counter').innerText = count;
+    });
+
+    // Increment counter on click
+    function incrementCounter() {
+        counterRef.transaction(current => {
+            return (current || 0) + 1;
+        });
+    }
+    </script>
+</body>
+</html>
