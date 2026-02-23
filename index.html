@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Document</title>
-
+    <link rel="icon" type="image/png" href="LOGO.png">
+    <title>GlobalClicks</title>
     <style>
         body{
             margin: 0;
@@ -53,6 +53,38 @@
         .big-button:active{
             transform: scale(0.95);
         }
+
+        .coffee-button{
+            width: 30vw;  /* 40% of viewport width */
+            height: 30vw; /* keep it square */
+            max-width: 250px;  /* optional cap */
+            max-height: 50px;
+            min-width: 100px;  /* optional minimum */
+            min-height: 50px;
+            border-radius: 5%;
+            background: linear-gradient(145deg, #008000, #006400);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.15s;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+        .coffee-button:hover{
+            transform: scale(1.05);
+        }
+        .coffee-button:active{
+            transform: scale(0.95);
+        }
+
+
         .big-text{
             margin-top: 0px;
             font-size: clamp(20px, 15vw, 150px);
@@ -74,9 +106,20 @@
         </div>
 
         <div class="big-text" id = "counter">
-        
+
+        </div>
+
+        <div class="coffee-button" onclick="window.open('https:buymeacoffee.com/GlobalClicks', '_blank')">
+            fund projects
         </div>
     </div>
+    <script>
+        function clickButton() {
+        document.getElementById('pop-sound').currentTime = 0;
+        document.getElementById('pop-sound').play();
+        incrementCounter(); // your Firebase counter function
+        }
+    </script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <script>
